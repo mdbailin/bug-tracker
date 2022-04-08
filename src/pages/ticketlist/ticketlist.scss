@@ -1,0 +1,30 @@
+.ticketList {
+    display: flex;
+    width: 100%;
+    
+    .ticketListContainer{
+        flex: 6;
+        .ticketTable{
+            .ticketTitle{
+                font-weight: 500;
+                font-size: 24px;
+                color: gray;
+                margin-bottom: 15px;
+                
+                .newTicketButton{
+                    float: right;
+                    text-decoration: none;
+                    color: green;
+                    font-size: 16px;
+                    font-weight: 400;
+                    border: 1px solid green;
+                    padding: 5px;
+                    border-radius: 5px;
+                    cursor: pointer;
+                }
+            }
+            margin: 10px;
+            padding: 10px;
+        }
+    }
+}

@@ -1,0 +1,33 @@
+.table {
+
+    .cellWrapper {
+        display: flex;
+        align-items: center;
+    }
+
+    .priority {
+        padding: 5px;
+        border-radius: 5px;
+
+        &.immediate{
+            color: red;
+            background-color: rgb(255, 170, 170) 
+        }
+
+        &.high{
+            color: orangered;
+            background-color: rgb(255, 181, 154);
+        }
+
+        &.medium{
+            color: goldenrod;
+            background-color: rgb(248, 234, 197);
+        }
+
+        &.low{
+            color: green;
+            background-color: rgb(149, 231, 149);
+
+        }
+    }
+}
