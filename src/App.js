@@ -3,8 +3,8 @@ import Home from "./pages/home/Home";
 import Login from "./pages/login/Login";
 import Single from "./pages/single/Single";
 import New from "./pages/new/New";
-import List from "./pages/list/List";
-import Ticketlist from "./pages/ticketlist/Ticketlist";
+import UserList from "./pages/userList/UserList"; 
+import Ticketlist from "./pages/ticketList/Ticketlist";
 import {
   BrowserRouter,
   Routes,
@@ -12,29 +12,59 @@ import {
 } from "react-router-dom";
 import { ticketInputs, userInputs } from './formSource';
 import "./style/dark.scss"
+import { Navigate } from "react-router-dom";
 import { DarkModeContext } from './context/darkModeContext';
-import Tickets from './pages/tickets/tickets';
+import { AuthContext } from './context/AuthContext';
+
 
 function App() {
 
-  const {darkMode} = useContext(DarkModeContext)
+  const { darkMode } = useContext(DarkModeContext)
 
+  const { currentUser } = useContext(AuthContext)
+  
+  const RequireAuth = ({ children }) => {
+    return currentUser ? (children) : <Navigate to="/login" />;
+  }
   return (
     <div className={darkMode ? "app dark" : "app"}>
     <BrowserRouter>
       <Routes>
         <Route path="/">
-          <Route index element={<Home />} />
           <Route path="login" element={<Login/>}/>
+            <Route index element=
+              {<RequireAuth>
+                <Home />
+              </RequireAuth>} 
+            />
           <Route path="users">
-            <Route index element={<List/>}/>
-            <Route path=":userId" element={<Single/>}/>
-            <Route path="new" element={<New inputs = {userInputs} title="Add New User"/>} />
+            <Route index element=
+              {<RequireAuth>
+                <UserList />
+              </RequireAuth>}
+            />
+            <Route path=":userId" element=
+              {<RequireAuth>
+                <Single />
+              </RequireAuth>}
+            />
+            <Route path="new" element=
+            {<RequireAuth>
+              <New inputs = {userInputs} title="Add New User"/>
+            </RequireAuth>} 
+            />
           </Route>
           <Route path="tickets">
-            <Route index element={<Ticketlist/>}/>
-            <Route path=":ticketId" element={<Single/>}/>
-            <Route path="new" element={<Tickets/>}/>
+            <Route index element=
+            {<RequireAuth>
+              <Ticketlist />
+            </RequireAuth>}
+            />
+            <Route path=":ticketId" element=
+            {<RequireAuth>
+              <Single />
+            </RequireAuth>}
+            />
           </Route>
         </Route>
       </Routes>

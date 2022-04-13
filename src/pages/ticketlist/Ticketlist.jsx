@@ -8,6 +8,7 @@ import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogTitle from '@mui/material/DialogTitle';
+import TicketForm from '../../components/ticketForm/TicketForm';
 
 
 const Ticketlist = () => {
@@ -34,7 +35,7 @@ const Ticketlist = () => {
                     <Dialog open={open} onClose={handleClose}>
                     <DialogTitle>New Ticket</DialogTitle>
                     <DialogContent>
-                        <h1>Hello</h1>
+                        <TicketForm />
                     </DialogContent>
                     <DialogActions>
                         <Button onClick={handleClose}>Cancel</Button>

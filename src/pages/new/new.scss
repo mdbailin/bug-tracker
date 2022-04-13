@@ -72,6 +72,11 @@
                         color: white;
                         font-weight: bold;
                         cursor: pointer;
+
+                        &:disabled{
+                            background-color: rgb(102, 209, 209);
+                            cursor: not-allowed;
+                        }
                         
                     }
                 }
