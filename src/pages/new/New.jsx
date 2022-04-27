@@ -3,7 +3,7 @@ import Sidebar from "../../components/sidebar/Sidebar"
 import Navbar from "../../components/navbar/Navbar"
 import DriveFolderUploadOutlined from '@mui/icons-material/DriveFolderUploadOutlined';
 import React, {useEffect, useState} from "react";
-import { doc, addDoc, collection, setDoc, serverTimestamp } from "firebase/firestore"; 
+import { doc, setDoc, serverTimestamp } from "firebase/firestore"; 
 import { auth, db, storage } from "../../firebase";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";

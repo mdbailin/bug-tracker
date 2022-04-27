@@ -2,26 +2,25 @@ import { Grid } from '@mui/material';
 import Controls from "../../components/controls/Controls";
 import { useForm, Form } from '../../components/useForm';
 import * as ticketService from "../../services/ticketService";
+import { collection, addDoc, serverTimestamp } from "firebase/firestore";
+import { db } from "../../firebase";
+
 
 
 
 const initialFValues = {
-    id: 0,
     projectId: '',
-    project: '',
     ticket: '',
     status: 'new',
-    date: new Date(),
     priority: '',
 
 }
 
 export default function EmployeeForm() {
+    
 
     const validate = (fieldValues = values) => {
         let temp = { ...errors }
-        if ('project' in fieldValues)
-            temp.project = fieldValues.project ? "" : "This field is required."
         if ('ticket' in fieldValues)
             temp.ticket = fieldValues.ticket ? "" : "This field is required."
         if ('projectId' in fieldValues)
@@ -46,11 +45,20 @@ export default function EmployeeForm() {
         resetForm
     } = useForm(initialFValues, true, validate);
 
-    const handleSubmit = e => {
+    const handleSubmit = async(e) => {
         e.preventDefault()
-        if (validate()){
-            console.log(e)
-            resetForm()
+        try{
+            
+                console.log("validated")
+                await addDoc(collection(db, "tickets"), {
+                    ...values,
+                    timeStamp: serverTimestamp()
+                  });
+                resetForm()
+            
+
+        }catch(err){
+            console.log(err)
         }
     }
 
@@ -58,14 +66,7 @@ export default function EmployeeForm() {
         <Form onSubmit={handleSubmit}>
             <Grid container>
                 <Grid item xs={6}>
-                    <Controls.Input
-                        name="project"
-                        label="project"
-                        value={values.project}
-                        onChange={handleInputChange}
-                        error={errors.project}
-                    />
-                    <Controls.Input
+                    <Controls.TextArea
                         name="ticket"
                         label="ticket"
                         value={values.ticket}
@@ -90,12 +91,6 @@ export default function EmployeeForm() {
                         onChange={handleInputChange}
                         options={ticketService.getProjectCollection()}
                         error={errors.projectId}
-                    />
-                    <Controls.DatePicker
-                        name="date"
-                        label="date"
-                        value={values.date}
-                        onChange={handleInputChange}
                     />
                     <Controls.Select
                         name="priority"

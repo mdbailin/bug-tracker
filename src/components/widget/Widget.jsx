@@ -13,8 +13,6 @@ const Widget = ({ type }) => {
         const [diff, setDiff] = useState(null)
         let data;
 
-        
-
         switch(type){
             case "user":
                 data={
