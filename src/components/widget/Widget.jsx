@@ -18,7 +18,7 @@ const Widget = ({ type }) => {
                 data={
                     title: "USERS",
                     link: "See all users",
-                    query:"users",
+                    query: "users",
                     icon : (
                         <PersonOutlineIcon className="icon" style={{
                             color: "crimson",
