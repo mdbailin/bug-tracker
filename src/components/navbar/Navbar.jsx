@@ -9,10 +9,32 @@ import ChatBubbleOutlineOutlinedIcon from '@mui/icons-material/ChatBubbleOutline
 import ListOutlinedIcon from '@mui/icons-material/ListOutlined';
 import { DarkModeContext } from "../../context/darkModeContext";
 import { useContext } from "react";
+import { doc, getDoc } from "firebase/firestore";
+import {db} from "../../firebase"
 
 const Navbar = () => {
     const { dispatch } = useContext(DarkModeContext);
+    const [url_string, seturl_string] = React.useState('https://firebasestorage.googleapis.com/v0/b/bugtracker-ad036.appspot.com/o/loading.png?alt=media&token=6f586e74-eaf6-4250-9b5f-7aa713f7c183');
+    
+    const fetchURL = async () => {
+        const user = JSON.parse(localStorage.getItem('user'))["uid"];
+        const userRef = doc(db, "users", user)
+        const docSnap = await getDoc(userRef)
+        const url = docSnap.data()["img"]
+        return url
+    }
 
+    async function url(){
+        seturl_string(await fetchURL())
+    }
+    url()
+    
+    
+
+    
+
+    
+    
     return (
         <div className="navbar">
             <div className="wrapper">
@@ -44,7 +66,7 @@ const Navbar = () => {
                     </div>
                     <div className="item">
                         <img
-                            src="https://images.pexels.com/photos/1239291/pexels-photo-1239291.jpeg?auto=compress&cs=tinysrgb&h=750&w=1260"
+                            src={url_string}
                             alt=""
                             className="avatar"
                         />

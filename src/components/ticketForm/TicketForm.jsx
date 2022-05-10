@@ -2,7 +2,7 @@ import { Grid } from '@mui/material';
 import Controls from "../../components/controls/Controls";
 import { useForm, Form } from '../../components/useForm';
 import * as ticketService from "../../services/ticketService";
-import { collection, addDoc, serverTimestamp } from "firebase/firestore";
+import { collection, doc, addDoc, updateDoc, arrayUnion, serverTimestamp } from "firebase/firestore";
 import { db } from "../../firebase";
 
 
@@ -50,12 +50,17 @@ export default function EmployeeForm() {
         try{
             
                 console.log("validated")
+                const projectRef = doc(db, "projects", values.projectId)
                 await addDoc(collection(db, "tickets"), {
                     ...values,
-                    timeStamp: serverTimestamp()
+                    timeStamp: serverTimestamp(),
+                    userId: JSON.parse(localStorage.getItem("user"))["uid"]
                   });
+                  await updateDoc(projectRef, {
+                    userId: arrayUnion(JSON.parse(localStorage.getItem("user"))["email"])
+                });
                 resetForm()
-            
+                
 
         }catch(err){
             console.log(err)

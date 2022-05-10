@@ -5,6 +5,7 @@ import Single from "./pages/single/Single";
 import New from "./pages/new/New";
 import UserList from "./pages/userList/UserList"; 
 import Ticketlist from "./pages/ticketList/Ticketlist";
+import ProjectList from "./pages/projectList/ProjectList";
 import {
   BrowserRouter,
   Routes,
@@ -65,7 +66,14 @@ function App() {
               <Single />
             </RequireAuth>}
             />
-          </Route>
+        </Route>
+        <Route path="projects">
+            <Route index element=
+              {<RequireAuth>
+                <ProjectList />
+              </RequireAuth>}
+            />
+        </Route>
         </Route>
       </Routes>
     </BrowserRouter>

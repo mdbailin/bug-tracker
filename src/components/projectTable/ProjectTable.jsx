@@ -1,12 +1,13 @@
-import "./datatable.scss"
+import "./projectTable.scss"
 import { DataGrid } from '@mui/x-data-grid';
-import { userColumns, userRows } from "../../datasource";
+import { projectColumns } from "../../projectsource";
 import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { collection, getDocs, deleteDoc, doc, onSnapshot } from "firebase/firestore";
 import {db} from "../../firebase"
 
-const Datatable = () => {
+
+const ProjectTable = () => {
   const [data, setData] = useState([]);
 
   useEffect(()=>{
@@ -29,12 +30,15 @@ const Datatable = () => {
 
     //onSnapshot for realtime data 
     const unsub = onSnapshot(
-      collection(db, "users"),
+      collection(db, "projects"),
       (snapShot) => {
         let list = [];
         snapShot.docs.forEach((doc) => {
           list.push({ id: doc.id, ...doc.data() });
         });
+        for (var i = 0; i < list.length; i++) {
+          list[i]["userId"] = list[i]["userId"].join(' ')
+        }
         setData(list);
       },
       (error) => {
@@ -50,7 +54,7 @@ const Datatable = () => {
 
   const handleDelete = async(id) => {
     try{
-      await deleteDoc(doc(db, "users", id));
+      await deleteDoc(doc(db, "projects", id));
       setData(data.filter((item) => item.id !== id));
     } catch(err){
       console.log(err)
@@ -66,7 +70,7 @@ const Datatable = () => {
         renderCell: (params) => {
         return (
           <div className="cellAction">
-            <Link to={"/users/" + params.row.id} style={{ textDecoration: "none "}}>
+            <Link to="/projects/test" style={{ textDecoration: "none "}}>
               <div className="viewButton">View</div>
               </Link>
               <div 
@@ -79,17 +83,17 @@ const Datatable = () => {
         )
       }}];
     return (
-    <div className="datatable">
-      <div className="datatableTitle">
-        Users
-        <Link to="/users/new" style={{ textDecoration: "none "}} className="link">
+    <div className="projectTable">
+      <div className="projectTableTitle">
+        Projects
+        <Link to="/projects/new" style={{ textDecoration: "none "}} className="link">
            Add New
         </Link>
       </div>
       <DataGrid
         className="datagrid"
         rows={data}
-        columns={userColumns.concat(actionColumn)}
+        columns={projectColumns.concat(actionColumn)}
         pageSize={9}
         rowsPerPageOptions={[9]}
         checkboxSelection
@@ -98,4 +102,4 @@ const Datatable = () => {
     );
 };
 
-export default Datatable;
+export default ProjectTable;

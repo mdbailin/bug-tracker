@@ -4,22 +4,22 @@ const KEYS ={
 }
 
 export const getStatusCollection = ()=>([
-    { id: '1', title: 'New' },
-    { id: '2', title: 'In Progress' },
-    { id: '3', title: 'Resolved' },
+    { id: '0', title: 'New' },
+    { id: '1', title: 'In Progress' },
+    { id: '2', title: 'Resolved' },
 ])
 
 export const getProjectCollection = ()=>([
-    { id: '1', title: 'Frontend' },
-    { id: '2', title: 'Backend' },
-    { id: '3', title: 'Authentication' },
-    { id: '4', title: 'Containerization/Deployment'}
+    { id: '0', title: 'Frontend' },
+    { id: '1', title: 'Backend' },
+    { id: '2', title: 'Authentication' },
+    { id: '3', title: 'Containerization/Deployment'}
 ])
 
 export const getPriorityCollection = ()=>([
-    { id: '1', title: 'low' },
-    { id: '2', title: 'medium' },
-    { id: '3', title: 'high' },
-    { id: '4', title: 'immediate'}
+    { id: '0', title: 'low' },
+    { id: '1', title: 'medium' },
+    { id: '2', title: 'high' },
+    { id: '3', title: 'immediate'}
 ])
 
