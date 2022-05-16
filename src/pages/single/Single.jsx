@@ -2,8 +2,8 @@ import React from 'react';
 import "./single.scss"
 import Sidebar from "../../components/sidebar/Sidebar";
 import Navbar from "../../components/navbar/Navbar";
-import Chart from "../../components/chart/Chart";
-import List from "../../components/table/Table";
+import UserChart from "../../components/userChart/UserChart";
+import UserTicketList from "../../components/userTicketList/UserTicketList";
 import { useParams } from "react-router-dom";
 import { doc, getDoc } from "firebase/firestore";
 import { db } from "../../firebase";
@@ -70,11 +70,11 @@ const Single = () => {
                 </div>   
             </div>
             <div className="right"></div> 
-                <Chart aspect={3 / 1} title="Tickets by Month"/>
+                <UserChart aspect={3 / 1} title="Tickets by Month"/>
             </div>
         <div className="bottom">
         <h1 className="title">Latest Tickets</h1>
-                <List/>
+                <UserTicketList/>
         </div>
         </div>
     </div>

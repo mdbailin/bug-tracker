@@ -4,8 +4,42 @@ import { CircularProgressbar } from "react-circular-progressbar";
 import "react-circular-progressbar/dist/styles.css"
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import KeyboardArrowUpOutlinedIcon from '@mui/icons-material/KeyboardArrowUpOutlined';
+import { collection, query, where, getDocs } from "firebase/firestore"
+import {db} from "../../firebase"
+import { useEffect, useState } from "react";
 
 const Featured = () => {
+
+    const [today, setToday] = useState(null)
+    const [diff, setDiff] = useState(null)
+    const [daily, setDaily] = useState(30)
+
+    useEffect(() => {
+        const fetchData = async () => {
+            const today = new Date();
+            today.setHours(0,1,0,0);
+            const tomorrow = new Date(new Date().setDate(today.getDate()));
+            tomorrow.setHours(23,59,0,0)
+            
+            
+    
+            const dayQuery = query(
+            collection(db, "tickets"),
+            where("status", "==", "2"),
+            where("timeStamp", "<=", tomorrow),
+            where("timeStamp", ">", today)
+            );
+            
+    
+            const dayData = await getDocs(dayQuery);
+            
+    
+            setToday(dayData.docs.length);
+            
+        };
+        fetchData();
+        }, []);
+        
     return (
         <div className="featured">
             <div className="top">
@@ -14,10 +48,10 @@ const Featured = () => {
             </div>
             <div className="bottom">
                 <div className="featuredChart">
-                    <CircularProgressbar value={50} text={"50%"} strokeWidth={5}/>
+                    <CircularProgressbar value={ (today/daily)*100 } text={Math.round((today/daily)*100)+"%"} strokeWidth={5}/>
                 </div>
                 <p className="title">Tickets solved today</p>
-                <p className="amount">100</p>
+                <p className="amount">{today}</p>
                 <p className="desc">Tickets solved from 12:01am to 11:59 pm each day
                 </p>
                 <div className="summary">
@@ -25,7 +59,7 @@ const Featured = () => {
                         <div className="itemTitle">Daily Target</div>
                         <div className="itemResult positive">
                             <KeyboardArrowUpOutlinedIcon fontSize="small" />
-                            <div className="resultAmount">200</div>
+                            <div className="resultAmount">{daily}</div>
                         </div>
                     </div>
                     <div className="item">

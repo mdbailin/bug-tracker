@@ -1,10 +1,12 @@
-import "./chart.scss"
+import "./userChart.scss"
 import { AreaChart, Area, XAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
 import { collection, query, where, getDocs } from "firebase/firestore";
 import { useEffect, useState } from "react";
 import {db} from "../../firebase"
+import { useParams } from "react-router-dom";
 
-const Chart = ({aspect, title}) => {
+const UserChart = ({aspect, title}) => {
+  const { userId } = useParams()  
   const [january, setJanuary] = useState(0)
   const [feburary, setFebruary] = useState(0)
   const [march, setMarch] = useState(0)
@@ -43,36 +45,42 @@ const Chart = ({aspect, title}) => {
         
         const januaryQuery = query(
           collection(db, "tickets"),
+          where("userId", "==", userId),
           where("timeStamp", "<=", januaryEnd),
           where("timeStamp", ">", januaryBeginning)
           );
         
         const februaryQuery = query(
           collection(db, "tickets"),
+          where("userId", "==", userId),
           where("timeStamp", "<=", februaryEnd),
           where("timeStamp", ">", februaryBeginning)
           );
 
         const marchQuery = query(
           collection(db, "tickets"),
+          where("userId", "==", userId),
           where("timeStamp", "<=", marchEnd),
           where("timeStamp", ">", marchBeginning)
           );
           
         const aprilQuery = query(
           collection(db, "tickets"),
+          where("userId", "==", userId),
           where("timeStamp", "<=", aprilEnd),
           where("timeStamp", ">", aprilBeginning)
           );
 
         const mayQuery = query(
           collection(db, "tickets"),
+          where("userId", "==", userId),
           where("timeStamp", "<=", mayEnd),
           where("timeStamp", ">", mayBeginning)
           );
         
         const juneQuery = query(
           collection(db, "tickets"),
+          where("userId", "==", userId),
           where("timeStamp", "<=", juneEnd),
           where("timeStamp", ">", juneBeginning)
           );
@@ -127,4 +135,4 @@ const Chart = ({aspect, title}) => {
     );
 };
 
-export default Chart 
+export default UserChart 

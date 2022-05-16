@@ -1,4 +1,4 @@
-import "./table.scss"
+import "./userTicketList.scss"
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
@@ -7,17 +7,21 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import { db } from "../../firebase";
-import { collection, query, orderBy, limit, onSnapshot } from "firebase/firestore";
+import { collection, query, orderBy, limit, onSnapshot, where } from "firebase/firestore";
 import { useEffect,useState } from "react";
+import { useParams } from "react-router-dom";
 
-const List = () => {
+const UserTicketList = () => {
   const [tickets, setTickets] = useState([])
   const [projects, setProjects] = useState([])
+  const { userId } = useParams()
+  
+  
   
 
   useEffect(() => {
     const ticketRef = collection(db, "tickets")
-    const ticketQuery = query(ticketRef, orderBy("timeStamp", "desc"), limit(5))
+    const ticketQuery = query(ticketRef, orderBy("timeStamp", "desc"), where("userId", "==", userId), limit(5))
     
 
     const unsub = onSnapshot(ticketQuery, (snapshot) => 
@@ -25,7 +29,7 @@ const List = () => {
     );
   
   return unsub;
-}, []);
+});
 
 useEffect(() => {
   const projectRef = collection(db, "projects")
@@ -65,6 +69,7 @@ useEffect(() => {
             )
         }
     }
+    
     return (
         <TableContainer component={Paper} className="table">
         <Table sx={{ minWidth: 650 }} aria-label="simple table">
@@ -97,4 +102,4 @@ useEffect(() => {
     )
 }
 
-export default List 
+export default UserTicketList 

@@ -7,6 +7,7 @@ import BugReportIcon from '@mui/icons-material/BugReport';
 import { collection, query, where, getDocs } from "firebase/firestore"
 import {db} from "../../firebase"
 import { useEffect, useState } from "react";
+import {Link} from "react-router-dom"
 
 const Widget = ({ type }) => {
         const [amount, setAmount] = useState(null)
@@ -17,7 +18,7 @@ const Widget = ({ type }) => {
             case "user":
                 data={
                     title: "USERS",
-                    link: "See all users",
+                    link: <Link to="/users" style={{ textDecoration: "none" }}><span>See all users</span></Link>,
                     query: "users",
                     icon : (
                         <PersonOutlineIcon className="icon" style={{
@@ -31,7 +32,7 @@ const Widget = ({ type }) => {
             case "project":
                 data={
                     title: "PROJECTS",
-                    link: "View all projects",
+                    link: <Link to="/projects" style={{ textDecoration: "none" }}><span>View all projects</span></Link>,
                     query: "projects",
                     icon : (
                         <AccountTreeIcon className="icon" style={{
@@ -44,7 +45,7 @@ const Widget = ({ type }) => {
             case "ticket":
                 data={
                     title: "TICKETS",
-                    link: "View all tickets",
+                    link: <Link to="/tickets" style={{ textDecoration: "none" }}><span>View all tickets</span></Link>,
                     query: "tickets",
                     icon : (
                         <BugReportIcon className="icon" style={{
@@ -63,6 +64,7 @@ const Widget = ({ type }) => {
                     const today = new Date();
                     const lastMonth = new Date(new Date().setMonth(today.getMonth() - 1));
                     const prevMonth = new Date(new Date().setMonth(today.getMonth() - 2));
+            
             
                     const lastMonthQuery = query(
                     collection(db, data.query),
@@ -98,7 +100,7 @@ const Widget = ({ type }) => {
             <div className="right">
                 <div className={`percentage ${diff < 0 ? "negative" : "positive"}`}>
                     {diff < 0 ? <KeyboardArrowDownIcon/> : <KeyboardArrowUpIcon/> }
-                    {diff} %
+                    {Math.round(diff)} %
                 </div>
                 {data.icon}
             </div>
