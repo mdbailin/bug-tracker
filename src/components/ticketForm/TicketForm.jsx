@@ -16,7 +16,7 @@ const initialFValues = {
 
 }
 
-export default function EmployeeForm() {
+export default function TicketForm() {
     
 
     const validate = (fieldValues = values) => {
@@ -49,14 +49,14 @@ export default function EmployeeForm() {
         e.preventDefault()
         try{
             
-                console.log("validated")
                 const projectRef = doc(db, "projects", values.projectId)
                 await addDoc(collection(db, "tickets"), {
                     ...values,
                     timeStamp: serverTimestamp(),
-                    userId: JSON.parse(localStorage.getItem("user"))["uid"]
+                    userId: JSON.parse(localStorage.getItem("user"))["uid"],
+                    completed: false
                   });
-                  await updateDoc(projectRef, {
+                await updateDoc(projectRef, {
                     userId: arrayUnion(JSON.parse(localStorage.getItem("user"))["email"])
                 });
                 resetForm()

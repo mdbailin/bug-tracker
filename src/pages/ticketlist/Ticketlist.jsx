@@ -32,7 +32,7 @@ const Ticketlist = () => {
                     <Button variant="outlined" onClick={handleClickOpen}>
                         Add New Ticket
                     </Button>
-                    <Dialog open={open} onClose={handleClose}>
+                    <Dialog open={open} onSubmit={handleClose} onClose={handleClose}>
                     <DialogTitle>New Ticket</DialogTitle>
                     <DialogContent>
                         <TicketForm />

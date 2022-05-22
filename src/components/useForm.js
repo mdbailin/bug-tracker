@@ -21,6 +21,9 @@ export function useForm(initialFValues, validateOnChange = false, validate) {
         setValues(initialFValues);
         setErrors({})
     }
+    const handleClose = () => {
+        this.setState({open: false})
+    }
 
 
     return {

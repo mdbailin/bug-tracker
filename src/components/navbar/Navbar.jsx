@@ -28,8 +28,23 @@ const Navbar = () => {
         seturl_string(await fetchURL())
     }
     url()
+
+
+    const getFullscreenElement = () => {
+        return document.fullscreenElement
+            || document.webkitFullscreenElement
+            || document.mozFullscreenElement
+            || document.msFullscreenElement;
+
+    }
     
-    
+    const toggleFullscreen = () => {
+         if(getFullscreenElement()) {
+             document.exitFullscreen();
+         } else {
+             document.documentElement.requestFullscreen().catch(console.log)
+         }
+    }
 
     
 
@@ -51,7 +66,7 @@ const Navbar = () => {
                         <DarkModeOutlinedIcon className="icon" onClick={() => dispatch({ type: "TOGGLE" })}/>
                     </div>
                     <div className="item">
-                        <FullscreenExitOutlinedIcon className="icon"/>
+                        <FullscreenExitOutlinedIcon onClick={toggleFullscreen} className="icon"/>
                     </div>
                     <div className="item">
                         <NotificationsNoneOutlinedIcon className="icon"/>

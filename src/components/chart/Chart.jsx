@@ -4,6 +4,7 @@ import { collection, query, where, getDocs } from "firebase/firestore";
 import { useEffect, useState } from "react";
 import {db} from "../../firebase"
 
+const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
 const Chart = ({aspect, title}) => {
   const [january, setJanuary] = useState(0)
   const [feburary, setFebruary] = useState(0)
@@ -13,12 +14,12 @@ const Chart = ({aspect, title}) => {
   const [june, setJune] = useState(0)
   
   const data = [
-      { name: "January", Total: january },
-      { name: "February", Total: feburary },
-      { name: "March", Total: march },
-      { name: "April", Total: april },
-      { name: "May", Total: may },
-      { name: "June", Total: june },
+      { name: months[0], Total: january },
+      { name: months[1], Total: feburary },
+      { name: months[2], Total: march },
+      { name: months[3], Total: april },
+      { name: months[4], Total: may },
+      { name: months[5], Total: june },
     ];
   
     useEffect(() => {

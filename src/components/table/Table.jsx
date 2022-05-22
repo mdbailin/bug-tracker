@@ -56,7 +56,7 @@ useEffect(() => {
                     rows.push(
                 {
                 id: tickets[i]["id"],
-                project: projects[tickets[i]["projectId"]]["projectName"],
+                project: (projects[tickets[i]["projectId"]]) ? projects[tickets[i]["projectId"]]["projectName"] : "loading",
                 ticket: tickets[i]["ticket"],
                 status: statusArr[tickets[i]["status"]],
                 date: (tickets[i]["timeStamp"]) ? formatDateTime(tickets[i]["timeStamp"].seconds) : "loading",

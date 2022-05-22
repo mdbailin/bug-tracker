@@ -1,12 +1,7 @@
-const KEYS ={
-    tickets:'tickets',
-    ticketId:'ticketId'
-}
 
 export const getStatusCollection = ()=>([
     { id: '0', title: 'New' },
-    { id: '1', title: 'In Progress' },
-    { id: '2', title: 'Resolved' },
+    { id: '1', title: 'In Progress' }
 ])
 
 export const getProjectCollection = ()=>([
