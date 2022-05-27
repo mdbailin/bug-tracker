@@ -1,7 +1,7 @@
 import * as React from 'react';
 import Navbar from "../../components/navbar/Navbar"
 import Sidebar from "../../components/sidebar/Sidebar"
-import Table from "../../components/table/Table"
+import UserTicketList from "../../components/userTicketList/UserTicketList"
 import "./ticketlist.scss"
 import Button from '@mui/material/Button';
 import Dialog from '@mui/material/Dialog';
@@ -9,12 +9,14 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogTitle from '@mui/material/DialogTitle';
 import TicketForm from '../../components/ticketForm/TicketForm';
+import * as ticketService from "../../services/ticketService";
 
 
 const Ticketlist = () => {
         const [open, setOpen] = React.useState(false);
         
         const handleClickOpen = () => {
+            ticketService.getProjectCollection();
             setOpen(true);
         };
         
@@ -43,7 +45,7 @@ const Ticketlist = () => {
                     </Dialog>
                     </div>
                 </div>
-                <Table />
+                <UserTicketList />
             </div>
             </div>
         </div>

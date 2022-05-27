@@ -37,6 +37,21 @@ export const userInputs = [
       placeholder: "USA",
     },
   ];
+
+  export const projectInputs = [
+    {
+      id: "projectDescription",
+      label: "Project Description",
+      type: "text",
+      placeholder: "project text here",
+    },
+    {
+      id: "projectName",
+      label: "Project Name",
+      type: "text",
+      placeholder: "Project Name Here",
+    },
+  ];
   
   export const ticketInputs = [
     {

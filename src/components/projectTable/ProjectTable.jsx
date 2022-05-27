@@ -2,7 +2,7 @@ import "./projectTable.scss"
 import { DataGrid } from '@mui/x-data-grid';
 import { projectColumns } from "../../projectsource";
 import { Link } from "react-router-dom";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { collection, getDocs, deleteDoc, doc, onSnapshot } from "firebase/firestore";
 import {db} from "../../firebase"
 
@@ -10,25 +10,17 @@ import {db} from "../../firebase"
 const ProjectTable = () => {
   const [data, setData] = useState([]);
 
+  const [open, setOpen] = React.useState(false);
+        
+        const handleClickOpen = () => {
+            setOpen(true);
+        };
+        
+        const handleClose = () => {
+            setOpen(false);
+        };
+
   useEffect(()=>{
-    //async fetching, must fetch data on each page load
-
-    // const fetchData = async () =>{
-    //   let list = []
-    //   try{
-    //     const querySnapshot = await getDocs(collection(db, "users"));
-    //     querySnapshot.forEach((doc) => {
-    //     
-    //     list.push({ id: doc.id, ...doc.data()})
-    //   });
-    //   setData(list)
-    //   }catch(err){
-    //     console.log(err)
-    //   }
-    //  };
-    //  fetchData()
-
-    //onSnapshot for realtime data 
     const unsub = onSnapshot(
       collection(db, "projects"),
       (snapShot) => {
@@ -70,7 +62,7 @@ const ProjectTable = () => {
         renderCell: (params) => {
         return (
           <div className="cellAction">
-            <Link to="/projects/test" style={{ textDecoration: "none "}}>
+            <Link to={"/projects/" + params.row.id} style={{ textDecoration: "none "}}>
               <div className="viewButton">View</div>
               </Link>
               <div 

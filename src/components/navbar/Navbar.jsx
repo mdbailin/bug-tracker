@@ -8,9 +8,12 @@ import NotificationsNoneOutlinedIcon from '@mui/icons-material/NotificationsNone
 import ChatBubbleOutlineOutlinedIcon from '@mui/icons-material/ChatBubbleOutlineOutlined';
 import ListOutlinedIcon from '@mui/icons-material/ListOutlined';
 import { DarkModeContext } from "../../context/darkModeContext";
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { doc, getDoc } from "firebase/firestore";
 import {db} from "../../firebase"
+
+
+// Some features are commented out and will be added in future updates.
 
 const Navbar = () => {
     const { dispatch } = useContext(DarkModeContext);
@@ -27,8 +30,11 @@ const Navbar = () => {
     async function url(){
         seturl_string(await fetchURL())
     }
-    url()
 
+    useEffect(()=>{
+        url();
+      },[]);
+    
 
     const getFullscreenElement = () => {
         return document.fullscreenElement
@@ -58,27 +64,27 @@ const Navbar = () => {
                     <SearchOutlinedIcon className="icon"/>
                 </div>
                 <div className="items">
-                    <div className="item">
+                    {/* <div className="item">
                         <LanguageOutlinedIcon className="icon"/>
                         English
-                    </div>
+                    </div> */}
                     <div className="item">
                         <DarkModeOutlinedIcon className="icon" onClick={() => dispatch({ type: "TOGGLE" })}/>
                     </div>
                     <div className="item">
                         <FullscreenExitOutlinedIcon onClick={toggleFullscreen} className="icon"/>
                     </div>
-                    <div className="item">
+                    {/* <div className="item">
                         <NotificationsNoneOutlinedIcon className="icon"/>
                         <div className="counter">1</div>
-                    </div>
-                    <div className="item">
+                    </div> */}
+                    {/* <div className="item">
                         <ChatBubbleOutlineOutlinedIcon className="icon"/>
                         <div className="counter">2</div>
                     </div>
                     <div className="item">
                         <ListOutlinedIcon className="icon"/>  
-                    </div>
+                    </div> */}
                     <div className="item">
                         <img
                             src={url_string}

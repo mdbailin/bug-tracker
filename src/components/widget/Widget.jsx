@@ -45,7 +45,7 @@ const Widget = ({ type }) => {
             case "ticket":
                 data={
                     title: "TICKETS",
-                    link: <Link to="/tickets" style={{ textDecoration: "none" }}><span>View all tickets</span></Link>,
+                    link: <Link to={"/tickets/" + JSON.parse(localStorage.getItem("user"))["uid"]} style={{ textDecoration: "none" }}><span>View all tickets</span></Link>,
                     query: "tickets",
                     icon : (
                         <BugReportIcon className="icon" style={{

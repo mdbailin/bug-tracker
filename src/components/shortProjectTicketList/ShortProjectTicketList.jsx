@@ -1,4 +1,4 @@
-import "./userTicketList.scss"
+import "./shortProjectTicketList.scss"
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
@@ -6,24 +6,21 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
-import Checkbox from '@mui/material/Checkbox'
 import { db } from "../../firebase";
-import { collection, query, orderBy, limit, onSnapshot, where, doc, updateDoc, getDoc } from "firebase/firestore";
+import { collection, query, orderBy, limit, onSnapshot, where} from "firebase/firestore";
 import React, { useEffect,useState } from "react";
 import { useParams } from "react-router-dom";
 
 
-
-const UserTicketList = () => {
+const ShortProjectTicketList = () => {
   const [tickets, setTickets] = useState([])
   const [projects, setProjects] = useState([])
   const [ticketData, setTicketData] = useState([])
-  const [finishedLoading, setFinishedLoading] = useState(false)
-  const { userId } = useParams()
+  const { projectId } = useParams()
 
   useEffect(() => {
     const ticketRef = collection(db, "tickets")
-    const ticketQuery = query(ticketRef, orderBy("timeStamp", "desc"), where("userId", "==", userId))
+    const ticketQuery = query(ticketRef, orderBy("timeStamp", "desc"), where("projectId", "==", projectId), limit(5))
     
 
     const unsub = onSnapshot(ticketQuery, (snapshot) => 
@@ -56,7 +53,7 @@ useEffect(() => {
  
 
 useEffect(() => {
-  if(tickets.length && projects.length && !finishedLoading){ 
+  if(tickets.length && projects.length){ 
   let rows = []
   for (var i = 0; i<tickets.length; i ++){
       rows.push(
@@ -66,44 +63,13 @@ useEffect(() => {
   ticket: tickets[i]["ticket"],
   status: statusArr[tickets[i]["status"]],
   date: (tickets[i]["timeStamp"]) ? formatDateTime(tickets[i]["timeStamp"].seconds) : "loading",
-  priority: priorityArr[tickets[i]["priority"]],
-  completed: tickets[i]["completed"]
+  priority: priorityArr[tickets[i]["priority"]]
   }
   )
   }
-  setFinishedLoading(true)
   setTicketData(rows)
 }
 }, [tickets])
- const updateData = async(id) => {
-   const ticketRef = doc(db, "tickets", id)
-   const docSnap = await getDoc(ticketRef);
-   if (docSnap.exists()) {
-    if(docSnap.data().completed === false){
-      await updateDoc(ticketRef, {
-        completed: true,
-        status: "2"
-      });
-    } else{
-      await updateDoc(ticketRef, {
-        completed: false,
-        status: "1"
-      });
-    }
-  } else {
-    // doc.data() will be undefined in this case
-    console.log("No such document!");
-  }
- }
- const handleChange = (id) => {
-      const newTicketList = ticketData.map(row=>{
-        if(row.id === id)
-          return {...row, status: (row.status === "In Progress") ? "Resolved" : "In Progress", completed:!row.completed }
-        return row;
-        })
-      setTicketData(newTicketList)
-      updateData(id)
-    }
     
     return (
         <TableContainer component={Paper} className="table">
@@ -116,7 +82,6 @@ useEffect(() => {
               <TableCell className="tableCell">Status</TableCell>
               <TableCell className="tableCell">Date</TableCell>
               <TableCell className="tableCell">Priority</TableCell>
-              <TableCell className="tableCell">Completed?</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -130,12 +95,6 @@ useEffect(() => {
                 <TableCell className="tableCell">
                   <span className={`priority ${row.priority}`}>{row.priority}</span>
                   </TableCell>
-                <TableCell className="tableCell">
-                <Checkbox
-                  checked={row.completed}
-                  onClick={() => handleChange(row.id)}
-                />
-                </TableCell>
               </TableRow>
             ))}
           </TableBody>
@@ -144,4 +103,4 @@ useEffect(() => {
     )
 }
 
-export default UserTicketList 
+export default ShortProjectTicketList 

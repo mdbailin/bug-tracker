@@ -3,7 +3,7 @@ import "./single.scss"
 import Sidebar from "../../components/sidebar/Sidebar";
 import Navbar from "../../components/navbar/Navbar";
 import UserChart from "../../components/userChart/UserChart";
-import UserTicketList from "../../components/userTicketList/UserTicketList";
+import ShortUserTicketList from "../../components/shortUserTicketList/ShortUserTicketList";
 import { useParams } from "react-router-dom";
 import { doc, getDoc } from "firebase/firestore";
 import { db } from "../../firebase";
@@ -45,7 +45,6 @@ const Single = () => {
         <Navbar />
         <div className="top">
             <div className="left">
-                <div className="editButton">Edit</div>
                 <h1 className="title">Information</h1>
                 <div className="item">
                     <img src={url_string}
@@ -74,7 +73,7 @@ const Single = () => {
             </div>
         <div className="bottom">
         <h1 className="title">Latest Tickets</h1>
-                <UserTicketList/>
+                <ShortUserTicketList/>
         </div>
         </div>
     </div>

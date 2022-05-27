@@ -2,7 +2,9 @@ import React, { useContext } from 'react';
 import Home from "./pages/home/Home";
 import Login from "./pages/login/Login";
 import Single from "./pages/single/Single";
+import ProjectSingle from "./pages/projectSingle/ProjectSingle";
 import New from "./pages/new/New";
+import NewProject from "./pages/newProject/NewProject";
 import UserList from "./pages/userList/UserList"; 
 import Ticketlist from "./pages/ticketList/Ticketlist";
 import ProjectList from "./pages/projectList/ProjectList";
@@ -11,7 +13,7 @@ import {
   Routes,
   Route,
 } from "react-router-dom";
-import { ticketInputs, userInputs } from './formSource';
+import { userInputs, projectInputs } from './formSource';
 import "./style/dark.scss"
 import { Navigate } from "react-router-dom";
 import { DarkModeContext } from './context/darkModeContext';
@@ -55,7 +57,7 @@ function App() {
             </RequireAuth>} 
             />
           </Route>
-          <Route path="tickets">
+          <Route path="/tickets/:userId">
             <Route index element=
             {<RequireAuth>
               <Ticketlist />
@@ -67,11 +69,21 @@ function App() {
             </RequireAuth>}
             />
         </Route>
-        <Route path="projects">
+        <Route path="/projects">
             <Route index element=
               {<RequireAuth>
                 <ProjectList />
               </RequireAuth>}
+            />
+            <Route path=":projectId" element=
+            {<RequireAuth>
+              <ProjectSingle />
+            </RequireAuth>}
+            />
+          <Route path="new" element=
+            {<RequireAuth>
+              <NewProject inputs = {projectInputs} title="Add New Project"/>
+            </RequireAuth>} 
             />
         </Route>
         </Route>

@@ -16,6 +16,7 @@ import { useNavigate } from "react-router-dom";
 const Sidebar = () => {
     const { dispatch } = useContext(DarkModeContext, AuthContext)
     const navigate = useNavigate()
+    const user = JSON.parse(localStorage.getItem('user'))["uid"];
 
     const handleLogout = (e)=>{
         e.preventDefault()
@@ -46,20 +47,24 @@ const Sidebar = () => {
                         <span>Dashboard</span>
                         </Link>
                     </li>
-                    <li>      
+                    <li> 
+                        <Link to={"/projects" } style={{ textDecoration: "none" }}>         
                         <AccountTreeIcon className="icon"/>
                         <span>Projects</span>
+                        </Link>
                     </li>
                     <li>
-                        <Link to="/tickets" style={{ textDecoration: "none" }}>  
+                        <Link to={"/tickets/" + user} style={{ textDecoration: "none" }}>  
                         <BugReportIcon className="icon"/>
                         <span>Tickets</span>
                         </Link>
                     </li>
                     <p className="title">USER </p>
                     <li>
+                        <Link to={"/users" } style={{ textDecoration: "none" }}> 
                         <SupervisorAccountIcon className="icon"/>
-                        <span>Admin</span>
+                        <span>Team</span>
+                        </Link>
                     </li>
                     <li>
                         <LogoutIcon className="icon"/>
