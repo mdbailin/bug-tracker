@@ -60,6 +60,7 @@ const Navbar = () => {
         <div className="navbar">
             <div className="wrapper">
                 <div className="search">
+                    {/* TODO: Implement search feature */}
                     <input type="text" placeholder="Search..." />
                     <SearchOutlinedIcon className="icon"/>
                 </div>
