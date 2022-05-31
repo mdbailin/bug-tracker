@@ -5,12 +5,10 @@ import { AuthContextProvider } from './context/AuthContext';
 import { DarkModeContextProvider } from './context/darkModeContext';
 
 ReactDOM.render(
-  <React.StrictMode>
       <DarkModeContextProvider>
         <AuthContextProvider>
           <App />
         </AuthContextProvider>
-    </DarkModeContextProvider>
-  </React.StrictMode>,
+    </DarkModeContextProvider>,
   document.getElementById('root')
 );

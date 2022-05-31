@@ -9,16 +9,21 @@ import Paper from '@mui/material/Paper';
 import Checkbox from '@mui/material/Checkbox'
 import { db } from "../../firebase";
 import { collection, query, orderBy, limit, onSnapshot, where, doc, updateDoc, getDoc } from "firebase/firestore";
-import React, { useEffect,useState } from "react";
+import React, { useEffect,useState,useRef } from "react";
 import { useParams } from "react-router-dom";
+import { ticketIncrement } from "../ticketForm/TicketForm";
 
 
 
 const UserTicketList = () => {
+  
+  
   const [tickets, setTickets] = useState([])
   const [projects, setProjects] = useState([])
   const [ticketData, setTicketData] = useState([])
+  const [newTicketData, setNewTicketData] = useState([])
   const [finishedLoading, setFinishedLoading] = useState(false)
+  const [isFirstRun, setIsFirstRun] = useState(false)
   const { userId } = useParams()
 
   useEffect(() => {
@@ -40,7 +45,7 @@ useEffect(() => {
     setProjects(snapshot.docs.map((doc) => ({ ...doc.data(), id:doc.id })))
   );
   return unsub;
-}, []);
+});
 
   
   const statusArr = ["New", "In Progress", "Resolved"];
@@ -75,6 +80,44 @@ useEffect(() => {
   setTicketData(rows)
 }
 }, [tickets])
+
+useEffect(() => {
+  if(isFirstRun){
+
+    const newTicketRef = collection(db, "tickets")
+    const newTicketQuery = query(newTicketRef, orderBy("timeStamp", "desc"), where("userId", "==", userId), limit(1))
+    const unsub = onSnapshot(newTicketQuery, (snapshot) => 
+      setNewTicketData(snapshot.docs.map((doc) => ({ ...doc.data(), id:doc.id }))),
+    );
+  return unsub;
+  
+  } else {
+    setIsFirstRun(true)
+  }
+  
+}, [ticketIncrement]);
+
+useEffect(() => {
+  if(newTicketData.length && newTicketData[0]["timeStamp"]){
+    const ticket = newTicketData[0];
+    const ticketInfo = {
+      id: ticket["id"],
+      project: projects[ticket["projectId"]]["projectName"],
+      ticket: ticket["ticket"],
+      status: statusArr[ticket["status"]],
+      date: (ticket["timeStamp"]) ? formatDateTime(ticket["timeStamp"].seconds) : "loading",
+      priority: priorityArr[ticket["priority"]],
+      completed: ticket["completed"]
+    }
+    const index = ticketData.map(object => object.id).indexOf(ticketInfo.id);
+    if (index === -1){
+      setTicketData(ticketData => [ticketInfo, ...ticketData])
+    }
+  }
+  
+}, [newTicketData]);
+
+
  const updateData = async(id) => {
    const ticketRef = doc(db, "tickets", id)
    const docSnap = await getDoc(ticketRef);
@@ -98,7 +141,7 @@ useEffect(() => {
  const handleChange = (id) => {
       const newTicketList = ticketData.map(row=>{
         if(row.id === id)
-          return {...row, status: (row.status === "In Progress") ? "Resolved" : "In Progress", completed:!row.completed }
+          return {...row, status: (row.status === "In Progress" || row.status === "New") ? "Resolved" : "In Progress", completed:!row.completed }
         return row;
         })
       setTicketData(newTicketList)

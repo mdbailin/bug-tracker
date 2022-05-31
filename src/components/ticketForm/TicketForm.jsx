@@ -16,6 +16,8 @@ const initialFValues = {
 
 }
 
+export let ticketIncrement = 0;
+
 export default function TicketForm() {
     
 
@@ -48,7 +50,7 @@ export default function TicketForm() {
     const handleSubmit = async(e) => {
         e.preventDefault()
         try{
-            
+                ticketIncrement += 1
                 const projectRef = doc(db, "projects", values.projectId)
                 await addDoc(collection(db, "tickets"), {
                     ...values,
@@ -58,8 +60,8 @@ export default function TicketForm() {
                   });
                 await updateDoc(projectRef, {
                     userId: arrayUnion(JSON.parse(localStorage.getItem("user"))["email"])
-                });
-                resetForm()
+                })
+                console.log(ticketIncrement)
                 
 
         }catch(err){
