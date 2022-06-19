@@ -98,8 +98,8 @@ const Chart = ({aspect, title}) => {
       }, []);
   return (
           
-     <div className="chart">
-            <div className="title">{title}</div>
+     <div className="chart" data-testid="chart">
+            <div className="title" >{title}</div>
             <ResponsiveContainer width="100%" aspect = {aspect}>
             <AreaChart 
                 width={730} 

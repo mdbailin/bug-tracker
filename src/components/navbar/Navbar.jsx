@@ -20,11 +20,15 @@ const Navbar = () => {
     const [url_string, seturl_string] = React.useState('https://firebasestorage.googleapis.com/v0/b/bugtracker-ad036.appspot.com/o/loading.png?alt=media&token=6f586e74-eaf6-4250-9b5f-7aa713f7c183');
     
     const fetchURL = async () => {
-        const user = JSON.parse(localStorage.getItem('user'))["uid"];
-        const userRef = doc(db, "users", user)
-        const docSnap = await getDoc(userRef)
-        const url = docSnap.data()["img"]
-        return url
+        try{
+            const user = JSON.parse(localStorage.getItem('user'))["uid"];
+            const userRef = doc(db, "users", user)
+            const docSnap = await getDoc(userRef)
+            const url = docSnap.data()["img"]
+            return url
+        } catch(err){
+            console.log(err)
+        }
     }
 
     async function url(){
@@ -57,7 +61,7 @@ const Navbar = () => {
     
     
     return (
-        <div className="navbar">
+        <div className="navbar" data-testid="navbar">
             <div className="wrapper">
                 <div className="search">
                     {/* TODO: Implement search feature */}

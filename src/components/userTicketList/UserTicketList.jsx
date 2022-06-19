@@ -17,7 +17,6 @@ import { ticketIncrement } from "../ticketForm/TicketForm";
 
 const UserTicketList = () => {
   
-  
   const [tickets, setTickets] = useState([])
   const [projects, setProjects] = useState([])
   const [ticketData, setTicketData] = useState([])

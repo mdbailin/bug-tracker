@@ -41,7 +41,7 @@ const Featured = () => {
         }, []);
         
     return (
-        <div className="featured">
+        <div className="featured" data-testid="featured">
             <div className="top">
                 <h1 className="title">Ticket Monitor</h1>
                 <MoreVertIcon fontSize="small"/>

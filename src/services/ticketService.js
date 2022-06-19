@@ -1,5 +1,6 @@
 import { db } from "../firebase";
-import { collection, query, getDocs, onSnapshot} from "firebase/firestore";
+import { collection, getDocs } from "firebase/firestore";
+
 
 
 // const getProjects = async() => {
@@ -18,7 +19,7 @@ export const getStatusCollection = ()=>([
     { id: '1', title: 'In Progress' }
 ])
 
-async function getProjects() {
+export const getProjects = async () => {
     const projects = []
     const querySnapshot = await getDocs(collection(db, "projects"));
     querySnapshot.forEach((doc) => {
@@ -33,7 +34,6 @@ async function getProjects() {
 }
 
 getProjects()
-
 export const getProjectCollection = ()=>(projectList)
 
 

@@ -1,10 +1,10 @@
 import { db } from "../firebase";
-import { collection, query, getDocs, onSnapshot} from "firebase/firestore";
+import { collection, getDocs} from "firebase/firestore";
 
 
 const userList = []
 
-async function getUsers() {
+const getUsers = async () => {
     const users = []
     const querySnapshot = await getDocs(collection(db, "users"));
     querySnapshot.forEach((doc) => {
@@ -19,6 +19,7 @@ async function getUsers() {
 }
 
 getUsers()
+
 
 
 export const getUserCollection = ()=>(userList)
