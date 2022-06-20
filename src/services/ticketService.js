@@ -13,6 +13,7 @@ import { collection, getDocs } from "firebase/firestore";
     
 //   };
 
+console.log("test")
 let projectList = []
 export const getStatusCollection = ()=>([
     { id: '0', title: 'New' },
