@@ -1,3 +1,4 @@
+import React from 'react';
 import "./projectChart.scss"
 import { AreaChart, Area, XAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
 import { collection, query, where, getDocs } from "firebase/firestore";
