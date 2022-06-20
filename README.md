@@ -1,11 +1,18 @@
 # BugTracker 
 
 BugTracker is a fullstack, lightweight application that helps organizations describe, assign, and manage bugs in their software development lifecycle. Version 1.1 of the software contains all of the following features:
- :closed_lock_with_key: User authentication, so that a user can only modify tickets that belong to them
 
-## Available Scripts
+1.  :closed_lock_with_key: User authentication, so that a user can only modify tickets that belong to them
+2. :office: Projects, where multiple members of the team can be assigned and solve various tickets underneath that project
+3. :raising_hand: User profiles, each of which provide individual member statistics on the number of tickets completed per month among other information
+4. :card-index: A professional dashboard, complete with organization statistics, a "latest tickets" feed, and the option to set the application to fullscreen
+5. :new_moon: A dark mode!
 
-In the project directory, you can run:
+Current features planned for the software include a search bar to search through tickets, a messaging system, and a comment log added to tickets in order to track their progression.
+
+## Getting Started
+
+Begin starting by installing the following dependencies in the project's root folder, using ```npm install```:
 
 ### `npm start`
 
