@@ -18,7 +18,7 @@ Begin starting by installing the following dependencies in the project's root fo
 
 - [Firebase](https://firebase.google.com/) is an app development platform that current handles the app's database and deployment. If you'd like to host your own build of the app, you'll need to create a firebase account [here](https://console.firebase.google.com/u/0/?pli=1).
 
--[MUI](https://mui.com/), or Material UI, is a comprehensive collection of UI tools ready to be integrated with your React components.
+- [MUI](https://mui.com/), or Material UI, is a comprehensive collection of UI tools ready to be integrated with your React components.
 
 ### `npm start`
 
