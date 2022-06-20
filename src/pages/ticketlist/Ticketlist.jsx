@@ -10,12 +10,13 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogTitle from '@mui/material/DialogTitle';
 import TicketForm from '../../components/ticketForm/TicketForm';
 import * as ticketService from "../../services/ticketService";
-
+import { getProjects } from '../../services/ticketService';
 
 const Ticketlist = () => {
         const [open, setOpen] = React.useState(false);
         
         const handleClickOpen = () => {
+            getProjects();
             ticketService.getProjectCollection();
             setOpen(true);
         };

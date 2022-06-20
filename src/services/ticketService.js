@@ -13,13 +13,14 @@ import { collection, getDocs } from "firebase/firestore";
     
 //   };
 
-const projectList = []
+let projectList = []
 export const getStatusCollection = ()=>([
     { id: '0', title: 'New' },
     { id: '1', title: 'In Progress' }
 ])
 
 export const getProjects = async () => {
+    projectList = []
     const projects = []
     const querySnapshot = await getDocs(collection(db, "projects"));
     querySnapshot.forEach((doc) => {
