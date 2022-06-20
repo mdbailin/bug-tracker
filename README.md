@@ -1,6 +1,7 @@
-# Getting Started with Create React App
+# BugTracker 
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+BugTracker is a fullstack, lightweight application that helps organizations describe, assign, and manage bugs in their software development lifecycle. Version 1.1 of the software contains all of the following features:
+ :closed_lock_with_key: User authentication, so that a user can only modify tickets that belong to them
 
 ## Available Scripts
 
