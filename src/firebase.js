@@ -4,10 +4,6 @@ import { getFirestore, setLogLevel } from "firebase/firestore";
 import { getStorage } from "firebase/storage";
 
 
-
-
-
-
 const firebaseConfig = {
   databaseURL: 'https://bugtracker-ad036.firebaseio.com',
   apiKey: process.env.REACT_APP_FIREBASE_KEY,

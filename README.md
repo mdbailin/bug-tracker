@@ -20,6 +20,63 @@ Begin starting by installing the following dependencies in the project's root fo
 
 - [MUI](https://mui.com/), or Material UI, is a comprehensive collection of UI tools ready to be integrated with your React components.
 
+## Setting up Firebase
+
+You can [set up Firebase](https://firebase.google.com/docs/web/setup) with your project easily using the following steps:
+
+1. Create a Firebase Project and register your app
+2. Install the SDK and initialize Firebase
+
+Install Firebase using npm:
+
+```bash
+npm install firebase
+```
+
+Initialize Firebase in your app and create a Firebase App Object:
+
+```bash
+import { initializeApp } from 'firebase/app';
+
+
+const firebaseConfig = {
+  //...
+};
+
+const app = initializeApp(firebaseConfig);
+```
+
+3. Access Firebase in your app
+
+You should have a separate ```firebase.js``` in the root directory of your project, which should look something like this:
+
+```
+import { initializeApp } from "firebase/app";
+import { getAuth } from "firebase/auth";
+import { getFirestore, setLogLevel } from "firebase/firestore";
+import { getStorage } from "firebase/storage";
+
+
+const firebaseConfig = {
+  databaseURL: XXXXXXXXXX,
+  apiKey: XXXXXXXXXX, //use an environmental variable for your apiKey
+  authDomain: XXXXXXXXXX.firebaseapp.com,
+  projectId: XXXXXXXXXX,
+  storageBucket: XXXXXXXXXX.appspot.com,
+  messagingSenderId: XXXXXXXXXX,
+  appId: XXXXXXXXXX
+}
+
+setLogLevel('silent');
+const app = initializeApp(firebaseConfig, setLogLevel("silent"));
+export const db = getFirestore(app, setLogLevel("silent"))
+export const auth = getAuth()
+export const storage = getStorage(app);
+```
+
+Note that ```setLogLevel('silent')``` was configured in order to prevent excessive logging, which is charged as per Google Firestore's policies.
+
+
 #### Running Tests
 To run the tests, run
 ```bash
