@@ -20,6 +20,13 @@ Begin starting by installing the following dependencies in the project's root fo
 
 - [MUI](https://mui.com/), or Material UI, is a comprehensive collection of UI tools ready to be integrated with your React components.
 
+#### Running Tests
+To run the tests, run
+```bash
+npm run test
+```
+and select 'a' to run the entire suite of tests.
+
 ### `npm start`
 
 Runs the app in the development mode.\
