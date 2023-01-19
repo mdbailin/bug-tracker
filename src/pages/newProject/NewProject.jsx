@@ -7,6 +7,8 @@ import { auth, db, storage } from "../../firebase";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 import { useNavigate } from "react-router-dom";
+import { getProjects } from '../../services/ticketService';
+
 
 
 
@@ -81,6 +83,7 @@ const NewProject = ({inputs,title}) => {
                 userId: [JSON.parse(localStorage.getItem("user"))["email"]],
                 timeStamp: serverTimestamp()
             });
+            getProjects();
             navigate(-1)
         } catch(err){
             console.log(err); 

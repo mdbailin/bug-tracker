@@ -10,7 +10,7 @@ import ListOutlinedIcon from '@mui/icons-material/ListOutlined';
 import { DarkModeContext } from "../../context/darkModeContext";
 import { useContext, useEffect } from "react";
 import { doc, getDoc } from "firebase/firestore";
-import {db} from "../../firebase"
+import {auth, db} from "../../firebase"
 
 
 // Some features are commented out and will be added in future updates.
@@ -21,7 +21,7 @@ const Navbar = () => {
     
     const fetchURL = async () => {
         try{
-            const user = JSON.parse(localStorage.getItem('user'))["uid"];
+            const user = JSON.parse(localStorage.getItem("user"))["uid"]
             const userRef = doc(db, "users", user)
             const docSnap = await getDoc(userRef)
             const url = docSnap.data()["img"]

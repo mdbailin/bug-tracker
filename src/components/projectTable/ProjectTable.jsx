@@ -5,6 +5,8 @@ import { Link } from "react-router-dom";
 import React, { useEffect, useState } from "react";
 import { collection, getDocs, deleteDoc, doc, onSnapshot } from "firebase/firestore";
 import {db} from "../../firebase"
+import { getProjects } from '../../services/ticketService';
+
 
 
 const ProjectTable = () => {
@@ -48,6 +50,7 @@ const ProjectTable = () => {
     try{
       await deleteDoc(doc(db, "projects", id));
       setData(data.filter((item) => item.id !== id));
+      getProjects();
     } catch(err){
       console.log(err)
     }

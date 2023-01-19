@@ -17,11 +17,11 @@ const Login = () => {
 
     const handleLogin = (e)=>{
         e.preventDefault()
-
         signInWithEmailAndPassword(auth, email, password)
         .then((userCredential) => {
             // Signed in 
             const user = userCredential.user;
+            localStorage.setItem("user", JSON.stringify(user));
             dispatch({type:"LOGIN", payload: user})
             navigate("/") 
             

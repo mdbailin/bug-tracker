@@ -17,7 +17,6 @@ const Ticketlist = () => {
         
         const handleClickOpen = () => {
             getProjects();
-            ticketService.getProjectCollection();
             setOpen(true);
         };
         

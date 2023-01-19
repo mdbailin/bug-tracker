@@ -1,4 +1,4 @@
-import React from 'react';
+import React from 'react'
 import './widget.scss'
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
@@ -6,7 +6,7 @@ import PersonOutlineIcon from '@mui/icons-material/PersonOutline';
 import AccountTreeIcon from '@mui/icons-material/AccountTree';
 import BugReportIcon from '@mui/icons-material/BugReport';
 import { collection, query, where, getDocs } from "firebase/firestore"
-import {db} from "../../firebase"
+import {auth, db} from "../../firebase"
 import { useEffect, useState } from "react";
 import {Link} from "react-router-dom"
 
